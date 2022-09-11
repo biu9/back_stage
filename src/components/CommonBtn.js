@@ -8,8 +8,8 @@ const Selected = (props) => {
 
 const Unselected = (props) => {
     return (
-        <div>
-            123123
+        <div className="w-full bg-white rounded-lg text-balck font-semibold px-6 py-2 cursor-pointer text-center h-full flex items-center justify-center whitespace-nowrap shadow-std">
+            <div>{props.text}</div>
         </div>
     )
 }
@@ -21,7 +21,7 @@ export default function CommBtn(props) {
         )
     } else {
         return (
-            <Unselected />
+            <Unselected text={props.text}/>
         )
     }
 }

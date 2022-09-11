@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const modalSlice = createSlice({
-  name: 'remindStatus',
+  name: 'modalSlice',
   initialState:{
     successModal:false,
     errorModal:false,
   },
   reducers: {
     openSuccessModal(state,action){
-        console.log("openSuccessModal")
         state.successModal = true
     },
     closeSuccessModal(state,action){

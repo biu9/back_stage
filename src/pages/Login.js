@@ -49,19 +49,28 @@ export default function Login() {
                         />
                     </div>
                     <div className="pt-6 w-full" onClick={() => {
-                        const res = true;
-                        if(res) {
-                            dispatch(openSuccessModal());
-                            setTimeout(() => {
-                                dispatch(closeSuccessModal());
-                                navigate("/formOverview");
-                            },1000);
-                        } else {
-                            dispatch(openErrorModal());
-                            setTimeout(() => {
-                                dispatch(closeErrorModal());
-                            },1000);
-                        }
+                        fetch("https://cyzz.fun/HeartSpace/admin/login",{
+                            method: "POST",
+                            mode: "cors",
+                            credentials: "include",
+                            body: JSON.stringify({
+                                username: userName,
+                                password: password
+                            })
+                        }).then(res => res.json()).then(data => {
+                            if(data.code === 0) {
+                                dispatch(openSuccessModal());
+                                setTimeout(() => {
+                                    dispatch(closeSuccessModal());
+                                    navigate("/ConsultantForm");
+                                },1000);
+                            } else {
+                                dispatch(openErrorModal());
+                                setTimeout(() => {
+                                    dispatch(closeErrorModal());
+                                },1000);
+                            }
+                        })
                     }}>
                         <CommBtn selected={true} text="登录"/>
                     </div>
