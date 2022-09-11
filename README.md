@@ -4,3 +4,5 @@
 
 - tailwind
 - CRA框架
+- react-router-dom
+- @reduxjs/toolkit
