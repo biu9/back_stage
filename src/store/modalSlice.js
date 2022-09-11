@@ -8,6 +8,7 @@ const modalSlice = createSlice({
   },
   reducers: {
     openSuccessModal(state,action){
+        console.log("openSuccessModal")
         state.successModal = true
     },
     closeSuccessModal(state,action){
