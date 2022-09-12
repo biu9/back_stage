@@ -28,11 +28,69 @@ const FormHeader = () => {
     )
 }
 
-const FormContainer = (props) => {
-    console.log("show data",props.data);
+const FormBody = (props) => {
     return (
-        <div>
+    <table className="table-fixed w-full">
+        <thead className="border-b-2 border-purple-200 bg-white h-10">
+            <tr align="left" className="">                                
+                <th className="">用户姓名</th>
+                <th className="">手机号</th>
+                <th className="">已结案人次</th>
+                <th className="">在接个案人次</th>
+                <th className="">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {props.data.map((item,index) => {
+                console.log(item);
+                let finished = 0;
+                let unFinished = 0;
+                if(item.consultations instanceof Array) {
+                    item.consultations.forEach((item) => {
+                        if(item.state === "已完成") {
+                            finished++;
+                        } else {
+                            unFinished++;
+                        }
+                    })
+                }
+                const data = {
+                    name: item.name ? item.name : "未填写",
+                    phoneNumber: item.phoneNumber ? item.phoneNumber : "未填写",
+                    finished: finished,
+                    unFinished: unFinished,
+                    id: item.id
+                }
+                return (
+                    <FormList data={data}/>
+                )
+            })}
+        </tbody>
+    </table>
+    )
+}
+
+const FormList = (props) => {
+    return (
+        <tr className=" border-purple-200 border-b-2 h-9 w-full">
+            <td>{props.data.name}</td>
+            <td>{props.data.phoneNumber}</td>
+            <td>{props.data.finished}</td>
+            <td>{props.data.unFinished}</td>
+            <td className="flex space-x-3 cursor-pointer items-center">
+                <div>封禁</div>
+                <div>解封</div>
+                <div>修改信息</div>
+            </td>
+        </tr>
+    )
+}
+
+const FormContainer = (props) => {
+    return (
+        <div className="flex flex-col space-y-3">
             <FormHeader/>
+            <FormBody data={props.data}/>
         </div>
     )
 }
