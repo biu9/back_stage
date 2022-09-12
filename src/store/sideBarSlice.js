@@ -4,7 +4,7 @@ const sideBarSlice = createSlice({
   name: 'formSlice',
   initialState:{
     ifShowUser:false,
-    ifShowConsultant:false,
+    ifShowConsultant:true,
   },
   reducers: {
     showUser(state,action){
