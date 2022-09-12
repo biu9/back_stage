@@ -6,6 +6,9 @@ module.exports = {
       backgroundImage: {
         'redRemind':"url('./static/redRemind.svg')",
         'uploadSuccess':"url('./static/uploadSuccess.svg')",
+        'search':"url('./static/search.svg')",
+        'export':"url('./static/export.svg')",
+        'add':"url('./static/add.svg')",
       },
       boxShadow: {
         sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
