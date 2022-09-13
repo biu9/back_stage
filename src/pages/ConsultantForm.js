@@ -88,6 +88,28 @@ const FormBody = (props) => {
 
 const FormList = (props) => {
     const dispatch = useDispatch();
+    function banOrUban(type) {
+        fetch(server+"/consultant/"+type,{
+            method: "POST",
+            mode: "cors",
+            credentials: "include",
+            body:JSON.stringify({
+                id: props.data.id
+            })
+        }).then(res => res.json()).then(res => {
+            if(res.code === 0) {
+                dispatch(openSuccessModal());
+                setTimeout(() => {
+                    dispatch(closeSuccessModal());
+                },1000);                    
+            } else {
+                dispatch(openErrorModal());
+                setTimeout(() => {
+                    dispatch(closeErrorModal());
+                },1000);
+            }
+        })
+    }
     return (
         <tr className=" border-purple-200 border-b-2 h-9 w-full">
             <td>{props.data.name}</td>
@@ -97,25 +119,16 @@ const FormList = (props) => {
             <td className="flex space-x-3 cursor-pointer items-center">
                 <div
                 onClick={() => {
-                    fetch(server+"/consultant/ban",{
-                        method: "POST",
-                        mode: "cors",
-                        credentials: "include",
-                        body:JSON.stringify({
-                            id: props.data.id
-                        })
-                    }).then(res => res.json()).then(res => {
-                        console.log("ban res : ",res);
-                    })
-                    dispatch(openSuccessModal());
-                    setTimeout(() => {
-                        dispatch(closeSuccessModal());
-                    },1000)
+                    banOrUban("ban");
                 }}
                 >
                     封禁
                 </div>
-                <div>解封</div>
+                <div
+                onClick={() => {
+                    banOrUban("unban");
+                }}
+                >解封</div>
                 <div>修改信息</div>
             </td>
         </tr>
