@@ -61,6 +61,7 @@ const FormBody = (props) => {
             {props.data.map((item,index) => {
                 let finished = 0;
                 let unFinished = 0;
+                //console.log("item",item);
                 if(item.consultations instanceof Array) {
                     item.consultations.forEach((item) => {
                         if(item.state === "已完成") {
@@ -151,6 +152,20 @@ export default function ConsultantForm() {
     const value = useSelector(state => state.search.value);
     useEffect(() => {
         (async() => {
+            const searchParam = {
+                name: null,
+                phoneNumber: null
+            };
+            if(value === null || value === "") {
+                searchParam.name = null;
+                searchParam.phoneNumber = null;
+            } else if(value[0].charCodeAt() >= 48 && value[0].charCodeAt() <= 57) {
+                searchParam.name = null;
+                searchParam.phoneNumber = value;
+            } else {
+                searchParam.name = value;
+                searchParam.phoneNumber = null;
+            }
             const res = await fetch(server+"/consultant/list",{
                 method: "POST",
                 mode: "cors",
@@ -158,14 +173,15 @@ export default function ConsultantForm() {
                 body:JSON.stringify({
                     pageNum:0,
                     pageSize:100,
-                    name:null ,// null表示不筛选
-                    phoneNumber:null, //null表示不筛选
+                    name:searchParam.name ,// null表示不筛选
+                    phoneNumber:searchParam.phoneNumber, //null表示不筛选
                 })
             });
             const json = await res.json();
             setData(json.data);
         })()
     },[value]);
+    console.log("value : ",value);
     return (
         <div className="flex min-h-screen">
             {successOperate ? <SuccessAlert text="操作成功" /> : null}
