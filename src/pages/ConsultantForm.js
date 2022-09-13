@@ -1,19 +1,36 @@
 import SideBar from "../components/SideBar";
 import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
+import SuccessAlert from "../components/SuccessAlert";
+import FailAlert from "../components/FailAlert";
+import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal } from "../store/modalSlice";
+import { useDispatch,useSelector } from "react-redux";
+import { setSearchParam } from "../store/searchSlice";
 
 const server = "https://cyzz.fun/HeartSpace";
 
 const FormHeader = () => {
+    const [searchValue,setSearchValue] = useState("");
+    const dispatch = useDispatch();
     return (
     <div className="flex justify-between">
         <div className="flex items-center">
             <input
+            value={searchValue}
+            onChange={e => {
+                setSearchValue(e.target.value);
+            }}
             placeholder="输入姓名/手机号进行搜索"
             className="p-3 rounded-l-lg w-64 outline-none h-10"
             />
             <div className="bg-purple-200 h-10 w-10 rounded-r-lg flex justify-center items-center">
-                <div className="bg-search w-3/4 h-3/4 bg-cover cursor-pointer"/>
+                <div 
+                onClick={() => {
+                    dispatch(setSearchParam({
+                        value: searchValue
+                    }));
+                }}
+                className="bg-search w-3/4 h-3/4 bg-cover cursor-pointer"/>
             </div>
         </div>
         <div className="flex space-x-3">
@@ -42,7 +59,6 @@ const FormBody = (props) => {
         </thead>
         <tbody>
             {props.data.map((item,index) => {
-                console.log(item);
                 let finished = 0;
                 let unFinished = 0;
                 if(item.consultations instanceof Array) {
@@ -71,6 +87,7 @@ const FormBody = (props) => {
 }
 
 const FormList = (props) => {
+    const dispatch = useDispatch();
     return (
         <tr className=" border-purple-200 border-b-2 h-9 w-full">
             <td>{props.data.name}</td>
@@ -78,7 +95,16 @@ const FormList = (props) => {
             <td>{props.data.finished}</td>
             <td>{props.data.unFinished}</td>
             <td className="flex space-x-3 cursor-pointer items-center">
-                <div>封禁</div>
+                <div
+                onClick={() => {
+                    dispatch(openSuccessModal());
+                    setTimeout(() => {
+                        dispatch(closeSuccessModal());
+                    },1000)
+                }}
+                >
+                    封禁
+                </div>
                 <div>解封</div>
                 <div>修改信息</div>
             </td>
@@ -97,6 +123,9 @@ const FormContainer = (props) => {
 
 export default function ConsultantForm() {
     const [data, setData] = useState([]);
+    const successOperate = useSelector(state => state.modal.successModal);
+    const failOperate = useSelector(state => state.modal.errorModal);
+    const value = useSelector(state => state.search.value);
     useEffect(() => {
         (async() => {
             const res = await fetch(server+"/consultant/list",{
@@ -113,9 +142,11 @@ export default function ConsultantForm() {
             const json = await res.json();
             setData(json.data);
         })()
-    },[]);
+    },[value]);
     return (
         <div className="flex min-h-screen">
+            {successOperate ? <SuccessAlert text="操作成功" /> : null}
+            {failOperate ? <FailAlert text="操作失败"/> : null}
             <div>
                 <SideBar/>
             </div>
