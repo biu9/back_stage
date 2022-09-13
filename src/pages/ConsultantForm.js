@@ -97,6 +97,16 @@ const FormList = (props) => {
             <td className="flex space-x-3 cursor-pointer items-center">
                 <div
                 onClick={() => {
+                    fetch(server+"/consultant/ban",{
+                        method: "POST",
+                        mode: "cors",
+                        credentials: "include",
+                        body:JSON.stringify({
+                            id: props.data.id
+                        })
+                    }).then(res => res.json()).then(res => {
+                        console.log("ban res : ",res);
+                    })
                     dispatch(openSuccessModal());
                     setTimeout(() => {
                         dispatch(closeSuccessModal());
