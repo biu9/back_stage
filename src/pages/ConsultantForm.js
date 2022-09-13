@@ -3,9 +3,10 @@ import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
 import SuccessAlert from "../components/SuccessAlert";
 import FailAlert from "../components/FailAlert";
-import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal } from "../store/modalSlice";
+import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal,openAddConsultant } from "../store/modalSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { setSearchParam } from "../store/searchSlice";
+import AddConsultant from "../components/AddConsultant";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -34,7 +35,9 @@ const FormHeader = () => {
             </div>
         </div>
         <div className="flex space-x-3">
-            <div>
+            <div onClick={() => {
+                dispatch(openAddConsultant());
+            }}>
                 <FunctionBtn text="添加咨询师" type="add"/>
             </div>
             <div>
@@ -184,6 +187,7 @@ export default function ConsultantForm() {
     console.log("value : ",value);
     return (
         <div className="flex min-h-screen">
+            <AddConsultant/>
             {successOperate ? <SuccessAlert text="操作成功" /> : null}
             {failOperate ? <FailAlert text="操作失败"/> : null}
             <div>

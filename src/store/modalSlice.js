@@ -5,6 +5,7 @@ const modalSlice = createSlice({
   initialState:{
     successModal:false,
     errorModal:false,
+    addConsultant:false
   },
   reducers: {
     openSuccessModal(state,action){
@@ -18,10 +19,20 @@ const modalSlice = createSlice({
     },
     closeErrorModal(state,action){
         state.errorModal = false
+    },
+    openAddConsultant(state,action) {
+        state.addConsultant =  true;
+    },
+    closeAddConsultant(state,action) {
+      state.addConsultant = false;
     }
   },
 })
 
-export const { openSuccessModal,closeSuccessModal,openErrorModal,closeErrorModal } = modalSlice.actions
+export const { 
+  openSuccessModal,closeSuccessModal,
+  openErrorModal,closeErrorModal,
+  openAddConsultant,closeAddConsultant
+} = modalSlice.actions
 
 export default modalSlice.reducer
