@@ -161,6 +161,7 @@ export default function ConsultantForm() {
     const successOperate = useSelector(state => state.modal.successModal);
     const failOperate = useSelector(state => state.modal.errorModal);
     const value = useSelector(state => state.search.value);
+    const dispatch = useDispatch();
     useEffect(() => {
         (async() => {
             const searchParam = {
@@ -189,8 +190,18 @@ export default function ConsultantForm() {
                 })
             });
             const json = await res.json();
-            setData(json.data);
+            console.log("json",json);
+            if(json.data !== null)
+                setData(json.data);
+            else {
+                console.log("search fail");
+                dispatch(openErrorModal());
+                setTimeout(() => {
+                    dispatch(closeErrorModal());
+                },1000);
+            }
         })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[value]);
     console.log("value : ",value);
     return (
