@@ -3,10 +3,12 @@ import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
 import SuccessAlert from "../components/SuccessAlert";
 import FailAlert from "../components/FailAlert";
-import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal,openAddConsultant } from "../store/modalSlice";
+import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal,openAddConsultant,openModifyConsultantInfo } from "../store/modalSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { setSearchParam } from "../store/searchSlice";
 import AddConsultant from "../components/AddConsultant";
+import ModifyConsultantInfo from "../components/ModifyConsultantInfo";
+import { setInitUserInfo } from "../store/consultantSlice";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -82,7 +84,7 @@ const FormBody = (props) => {
                     id: item.id
                 }
                 return (
-                    <FormList data={data}/>
+                    <FormList data={data} initData={item}/>
                 )
             })}
         </tbody>
@@ -133,7 +135,13 @@ const FormList = (props) => {
                     banOrUban("unban");
                 }}
                 >解封</div>
-                <div>修改信息</div>
+                <div
+                onClick={() => {
+                    console.log("init data : ",props.initData);
+                    dispatch(setInitUserInfo(props.initData));
+                    dispatch(openModifyConsultantInfo());
+                }}
+                >修改信息</div>
             </td>
         </tr>
     )
@@ -188,6 +196,7 @@ export default function ConsultantForm() {
     return (
         <div className="flex min-h-screen">
             <AddConsultant/>
+            <ModifyConsultantInfo/>
             {successOperate ? <SuccessAlert text="操作成功" /> : null}
             {failOperate ? <FailAlert text="操作失败"/> : null}
             <div>
