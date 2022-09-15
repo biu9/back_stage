@@ -3,7 +3,11 @@ import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
 import SuccessAlert from "../components/SuccessAlert";
 import FailAlert from "../components/FailAlert";
-import { openSuccessModal,openErrorModal,closeErrorModal,closeSuccessModal,openAddConsultant,openModifyConsultantInfo } from "../store/modalSlice";
+import { openSuccessModal,openErrorModal,
+    closeErrorModal,closeSuccessModal,
+    openAddConsultant,
+    openModifyConsultantInfo,
+     } from "../store/modalSlice";
 import { useDispatch,useSelector } from "react-redux";
 import { setSearchParam } from "../store/searchSlice";
 import AddConsultant from "../components/AddConsultant";

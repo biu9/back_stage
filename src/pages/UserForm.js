@@ -1,6 +1,10 @@
 import SideBar from "../components/SideBar";
 import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
+import { setSymptom } from "../store/consultationSlice";
+import UserInfoModal from "../components/UserInfoModal";
+import { openUserInfoModal } from "../store/modalSlice";
+import { useDispatch } from "react-redux";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -28,6 +32,7 @@ const FormHeader = () => {
 }
 
 const FormBody = (props) => {
+    const dispatch = useDispatch();
     return (
     <table className="table-fixed w-full">
         <thead className="border-b-2 border-purple-200 bg-white h-10">
@@ -59,7 +64,13 @@ const FormBody = (props) => {
                                 <td>{consultation.state}</td>
                                 <td>{crisisSituation}</td>
                                 <td>
-                                    <div className="cursor-pointer">查看</div>
+                                    <div 
+                                    onClick={() => {
+                                        //console.log("symptom : ",consultation.Symptom);
+                                        dispatch(setSymptom(consultation.Symptom));
+                                        dispatch(openUserInfoModal());
+                                    }}
+                                    className="cursor-pointer">查看</div>
                                 </td>
                             </tr>
                             ))
@@ -106,6 +117,7 @@ export default function UserForm() {
     console.log("show data : ",data);
     return (
         <div className="flex min-h-screen">
+            <UserInfoModal/>
             <div>
                 <SideBar/>
             </div>
