@@ -41,17 +41,45 @@ const FormBody = (props) => {
             </tr>
         </thead>
         <tbody>
-
+            {   
+            props.data instanceof Array ? 
+                props.data.map(item => {
+                    const res = []
+                    if(item.consultations) {
+                        item.consultations.map(consultation => {
+                            let crisisSituation = "";
+                            if(consultation.consultRecords instanceof Array) {
+                                crisisSituation = consultation.consultRecords[consultation.consultRecords.length - 1].crisisSituation;
+                            }
+                            res.push((
+                                <tr className=" border-purple-200 border-b-2 h-9 w-full">
+                                <td>{item.name}</td>
+                                <td>咨询师姓名</td>
+                                <td>{item.phoneNumber}</td>
+                                <td>{consultation.state}</td>
+                                <td>{crisisSituation}</td>
+                                <td>
+                                    <div className="cursor-pointer">查看</div>
+                                </td>
+                            </tr>
+                            ))
+                            return null;
+                        })
+                    }
+                    return (res)
+                })
+            : null 
+            }
         </tbody>
     </table>
     )
 }
 
-const FormContainer = () => {
+const FormContainer = (props) => {
     return (
     <div  className="flex flex-col space-y-3">
         <FormHeader/>
-        <FormBody/>
+        <FormBody data={props.data}/>
     </div>
     )
 }
@@ -82,7 +110,7 @@ export default function UserForm() {
                 <SideBar/>
             </div>
             <div className="pt-24 p-6 bg-purple-100 w-full px-20">
-                <FormContainer/>
+                <FormContainer data={data}/>
             </div>
         </div>
     )
