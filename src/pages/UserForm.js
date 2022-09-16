@@ -4,7 +4,7 @@ import FunctionBtn from "../components/FunctionBtn";
 import { setSymptom,setConsultation } from "../store/consultationSlice";
 import UserInfoModal from "../components/UserInfoModal";
 import { openUserInfoModal } from "../store/modalSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { openModifyCrisisSituation } from "../store/modalSlice";
 import ChangeCrisisSituation from "../components/ChangeCrisisSituation";
 
@@ -108,6 +108,7 @@ const FormContainer = (props) => {
 
 export default function UserForm() {
     const [data, setData] = useState();
+    const modalStateChange = useSelector(state => state.modal.modifyCrisisSituation);
     useEffect(() => {
         (async() => {
             const res = await fetch(server+"/user/list",{
@@ -124,7 +125,7 @@ export default function UserForm() {
             const json = await res.json();
             setData(json.data);
         })()
-    },[]);
+    },[modalStateChange]);
     console.log("show data : ",data);
     return (
         <div className="flex min-h-screen">
