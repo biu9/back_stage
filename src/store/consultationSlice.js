@@ -17,15 +17,21 @@ const consultationSlice = createSlice({
             "diagnosis":'String',
         },
         "optionInfo":'String' || null,
+    },
+    consultation:{
+
     }
   },
   reducers: {
     setSymptom(state,action) {
         state.symptom = action.payload;
+    },
+    setConsultation(state,action) {
+        state.consultation = action.payload;
     }
   },
 })
 
-export const { setSymptom } = consultationSlice.actions
+export const { setSymptom,setConsultation } = consultationSlice.actions
 
 export default consultationSlice.reducer

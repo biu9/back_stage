@@ -1,10 +1,12 @@
 import SideBar from "../components/SideBar";
 import { useState,useEffect } from "react";
 import FunctionBtn from "../components/FunctionBtn";
-import { setSymptom } from "../store/consultationSlice";
+import { setSymptom,setConsultation } from "../store/consultationSlice";
 import UserInfoModal from "../components/UserInfoModal";
 import { openUserInfoModal } from "../store/modalSlice";
 import { useDispatch } from "react-redux";
+import { openModifyCrisisSituation } from "../store/modalSlice";
+import ChangeCrisisSituation from "../components/ChangeCrisisSituation";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -63,14 +65,23 @@ const FormBody = (props) => {
                                 <td>{item.phoneNumber}</td>
                                 <td>{consultation.state}</td>
                                 <td>{crisisSituation}</td>
-                                <td>
+                                <td className="flex space-x-3">
                                     <div 
                                     onClick={() => {
                                         //console.log("symptom : ",consultation.Symptom);
                                         dispatch(setSymptom(consultation.Symptom));
                                         dispatch(openUserInfoModal());
                                     }}
-                                    className="cursor-pointer">查看</div>
+                                    className="cursor-pointer">查看
+                                    </div>
+                                    <div
+                                    onClick={() => {
+                                        dispatch(openModifyCrisisSituation());
+                                        dispatch(setConsultation(consultation));
+                                    }}
+                                    className="cursor-pointer">
+                                        危机个案
+                                    </div>
                                 </td>
                             </tr>
                             ))
@@ -118,6 +129,7 @@ export default function UserForm() {
     return (
         <div className="flex min-h-screen">
             <UserInfoModal/>
+            <ChangeCrisisSituation/>
             <div>
                 <SideBar/>
             </div>

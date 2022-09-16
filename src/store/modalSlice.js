@@ -8,6 +8,7 @@ const modalSlice = createSlice({
     addConsultant:false,
     modifyConsultantInfo:false,
     userInfoModal:false,
+    modifyCrisisSituation:false,
   },
   reducers: {
     openSuccessModal(state,action){
@@ -39,6 +40,12 @@ const modalSlice = createSlice({
     },
     closeUserInfoModal(state,action) {
       state.userInfoModal = false;
+    },
+    openModifyCrisisSituation(state,action) {
+      state.modifyCrisisSituation = true;
+    },
+    closeModifyCrisisSituation(state,action) {
+      state.modifyCrisisSituation = false;
     }
   },
 })
@@ -48,7 +55,8 @@ export const {
   openErrorModal,closeErrorModal,
   openAddConsultant,closeAddConsultant,
   openModifyConsultantInfo,closeModifyConsultantInfo,
-  openUserInfoModal,closeUserInfoModal
+  openUserInfoModal,closeUserInfoModal,
+  openModifyCrisisSituation,closeModifyCrisisSituation
 } = modalSlice.actions
 
 export default modalSlice.reducer
