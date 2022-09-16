@@ -141,7 +141,7 @@ const FormList = (props) => {
                 >解封</div>
                 <div
                 onClick={() => {
-                    console.log("init data : ",props.initData);
+                    //console.log("init data : ",props.initData);
                     dispatch(setInitUserInfo(props.initData));
                     dispatch(openModifyConsultantInfo());
                 }}
@@ -165,6 +165,7 @@ export default function ConsultantForm() {
     const successOperate = useSelector(state => state.modal.successModal);
     const failOperate = useSelector(state => state.modal.errorModal);
     const value = useSelector(state => state.search.value);
+    const modalUpdate = useSelector(state => state.modal.modifyConsultantInfo);
     const dispatch = useDispatch();
     useEffect(() => {
         (async() => {
@@ -206,7 +207,7 @@ export default function ConsultantForm() {
             }
         })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[value]);
+    },[value,modalUpdate]);
     console.log("value : ",value);
     return (
         <div className="flex min-h-screen">

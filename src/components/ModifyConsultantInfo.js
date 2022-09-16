@@ -2,7 +2,7 @@ import { Modal } from "@material-ui/core";
 import { closeModifyConsultantInfo } from "../store/modalSlice";
 import CommBtn from "./CommonBtn";
 import { useDispatch,useSelector } from "react-redux";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import translateKey2Chinese from "../utils/translateKey2Chinese";
 import { setInitUserInfo } from "../store/consultantSlice";
 
@@ -12,6 +12,9 @@ export default function ModifyConsultantInfo() {
     const show = useSelector(state => state.modal.modifyConsultantInfo);
     const initUserInfo = useSelector(state => state.consultant.userInfo);
     const [showInfo,setShowInfo] = useState(initUserInfo);
+    useEffect(() => {
+        setShowInfo(initUserInfo);
+    },[initUserInfo]);
     const modifyKey = {
         name:1,
         gender:1,
@@ -21,8 +24,8 @@ export default function ModifyConsultantInfo() {
         tags:0
     }
     const dispatch = useDispatch();
-    console.log("show info : ",showInfo);
-    console.log("init user info : ",initUserInfo);
+    //console.log("show info : ",showInfo);
+    //console.log("init user info : ",initUserInfo);
     return (
         <Modal open={show}>
             <div>
@@ -135,6 +138,18 @@ export default function ModifyConsultantInfo() {
                         <div
                         className="w-full"
                         onClick={() => {
+                            console.log("update data : ",showInfo);
+                            fetch(server+"/consultant/update",{
+                                method:"POST",
+                                mode:"cors",
+                                credentials: 'include',
+                                body:JSON.stringify(showInfo),
+                            }).then(res => res.json()).then(res => {
+                                console.log("update res : ",res);
+                                if(res.code === 0) {
+                                    alert("修改成功");
+                                }
+                            })
                             dispatch(setInitUserInfo(showInfo));
                             dispatch(closeModifyConsultantInfo());
                         }}
