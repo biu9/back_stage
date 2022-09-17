@@ -34,7 +34,6 @@ const FormHeader = () => {
 }
 
 const FormBody = (props) => {
-    const dispatch = useDispatch();
     return (
     <table className="table-fixed w-full">
         <thead className="border-b-2 border-purple-200 bg-white h-10">
@@ -58,15 +57,15 @@ const FormBody = (props) => {
                             if(consultation.consultRecords instanceof Array) {
                                 crisisSituation = consultation.consultRecords[consultation.consultRecords.length - 1].crisisSituation;
                             }
-                            res.push((
-                                <tr className=" border-purple-200 border-b-2 h-9 w-full">
+                            /*res.push((
+                            <tr className=" border-purple-200 border-b-2 h-9 w-full">
                                 <td>{item.name}</td>
-                                <td>咨询师姓名</td>
+                                <td>{name}</td>
                                 <td>{item.phoneNumber}</td>
                                 <td>{consultation.state}</td>
                                 <td>{crisisSituation}</td>
                                 <td className="flex space-x-3">
-                                    <div 
+                                        <div 
                                     onClick={() => {
                                         //console.log("symptom : ",consultation.Symptom);
                                         dispatch(setSymptom(consultation.Symptom));
@@ -84,17 +83,69 @@ const FormBody = (props) => {
                                     </div>
                                 </td>
                             </tr>
-                            ))
-                            return null;
+                            ));*/
+                            res.push(<FormList item={item} consultation={consultation} crisisSituation={crisisSituation}/>)
+                            return null;          
                         })
                     }
-                    return (res)
+                    return (res);
                 })
             : null 
             }
         </tbody>
     </table>
     )
+}
+
+const FormList = (props) => {
+    const dispatch = useDispatch();
+    const [name,setName] = useState("");
+    useEffect(() => {
+        (async() => {
+            const name = await getConsultantName(props.consultation.ConsultantId);
+            setName(name);
+        })()
+    },[props.consultation.ConsultantId])
+    return (
+        <tr className=" border-purple-200 border-b-2 h-9 w-full">
+        <td>{props.item.name}</td>
+        <td>{name}</td>
+        <td>{props.item.phoneNumber}</td>
+        <td>{props.consultation.state}</td>
+        <td>{props.crisisSituation}</td>
+        <td className="flex space-x-3">
+                <div 
+            onClick={() => {
+                //console.log("symptom : ",consultation.Symptom);
+                dispatch(setSymptom(props.consultation.Symptom));
+                dispatch(openUserInfoModal());
+            }}
+            className="cursor-pointer">查看
+            </div>
+            <div
+            onClick={() => {
+                dispatch(openModifyCrisisSituation());
+                dispatch(setConsultation(props.consultation));
+            }}
+            className="cursor-pointer">
+                危机个案
+            </div>
+        </td>
+    </tr>
+    )
+}
+
+async function getConsultantName(id) {
+    const res = await fetch(server+"/consultant/get",{
+        method: "POST",
+        mode: "cors",
+        credentials: "include",
+        body:JSON.stringify({
+            id: id
+        })
+    });
+    const resJson = await res.json();
+    return resJson.data.name;
 }
 
 const FormContainer = (props) => {
