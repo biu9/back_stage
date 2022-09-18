@@ -25,7 +25,7 @@ const FormHeader = () => {
             placeholder="输入姓名/手机号进行搜索"
             className="p-3 rounded-l-lg w-64 outline-none h-10"
             />
-            <div className="bg-purple-200 h-10 w-10 rounded-r-lg flex justify-center items-center">
+            <div className="bg-green-200 h-10 w-10 rounded-r-lg flex justify-center items-center">
                 <div 
                 onClick={() => {
                     dispatch(setSearchParam({
@@ -47,7 +47,7 @@ const FormHeader = () => {
 const FormBody = (props) => {
     return (
     <table className="table-fixed w-full">
-        <thead className="border-b-2 border-purple-200 bg-white h-10">
+        <thead className="border-b-2 border-green-200 bg-white h-10">
             <tr align="left" className="">                                
                 <th >用户姓名</th>
                 <th >所属咨询师</th>
@@ -69,7 +69,7 @@ const FormBody = (props) => {
                                 crisisSituation = consultation.consultRecords[consultation.consultRecords.length - 1].crisisSituation;
                             }
                             /*res.push((
-                            <tr className=" border-purple-200 border-b-2 h-9 w-full">
+                            <tr className=" border-green-200 border-b-2 h-9 w-full">
                                 <td>{item.name}</td>
                                 <td>{name}</td>
                                 <td>{item.phoneNumber}</td>
@@ -118,7 +118,7 @@ const FormList = (props) => {
         })()
     },[props.consultation.ConsultantId])
     return (
-    <tr className=" border-purple-200 border-b-2 h-9 w-full">
+    <tr className=" border-green-200 border-b-2 h-9 w-full">
         <td>{props.item.name}</td>
         <td>{name}</td>
         <td>{props.item.phoneNumber}</td>
@@ -211,7 +211,7 @@ export default function UserForm() {
             <div>
                 <SideBar/>
             </div>
-            <div className="pt-24 p-6 bg-purple-100 w-full px-20">
+            <div className="pt-24 p-6 bg-green-100 w-full px-20">
                 <FormContainer data={data}/>
             </div>
         </div>

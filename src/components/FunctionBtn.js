@@ -1,6 +1,6 @@
 const UnSelected = (props) => {
     return (
-        <div className="border-2 border-purple-200 w-full bg-white-600 rounded-lg text-black px-6 py-2 cursor-pointer text-center h-full flex items-center justify-center whitespace-nowrap bg-white">
+        <div className="border-2 border-green-200 w-full bg-white-600 rounded-lg text-black px-6 py-2 cursor-pointer text-center h-full flex items-center justify-center whitespace-nowrap bg-white">
             {(() => {
                 switch(props.type) {
                     case 'export':

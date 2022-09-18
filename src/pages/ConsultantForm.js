@@ -30,7 +30,7 @@ const FormHeader = () => {
             placeholder="输入姓名/手机号进行搜索"
             className="p-3 rounded-l-lg w-64 outline-none h-10"
             />
-            <div className="bg-purple-200 h-10 w-10 rounded-r-lg flex justify-center items-center">
+            <div className="bg-green-200 h-10 w-10 rounded-r-lg flex justify-center items-center">
                 <div 
                 onClick={() => {
                     dispatch(setSearchParam({
@@ -57,7 +57,7 @@ const FormHeader = () => {
 const FormBody = (props) => {
     return (
     <table className="table-fixed w-full">
-        <thead className="border-b-2 border-purple-200 bg-white h-10">
+        <thead className="border-b-2 border-green-200 bg-white h-10">
             <tr align="left" className="">                                
                 <th className="">用户姓名</th>
                 <th className="">手机号</th>
@@ -121,7 +121,7 @@ const FormList = (props) => {
         })
     }
     return (
-        <tr className=" border-purple-200 border-b-2 h-9 w-full">
+        <tr className=" border-green-200 border-b-2 h-9 w-full">
             <td>{props.data.name}</td>
             <td>{props.data.phoneNumber}</td>
             <td>{props.data.finished}</td>
@@ -218,7 +218,7 @@ export default function ConsultantForm() {
             <div>
                 <SideBar/>
             </div>
-            <div className="pt-24 p-6 bg-purple-100 w-full px-20">
+            <div className="pt-24 p-6 bg-green-100 w-full px-20">
                 <FormContainer data={data}/>
             </div>
         </div>
