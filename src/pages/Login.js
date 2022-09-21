@@ -18,9 +18,13 @@ export default function Login() {
             {successLogin ? <SuccessAlert text="登入成功"/> : null}
             {errorLogin ? <FailAlert text="登入失敗"/> : null}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center items-center">
-                <div className="pb-16 text-4xl font-bold">
+                <div className=" text-4xl font-bold">
                     欢迎访问Heartspace后台管理系统
                 </div>
+                <img 
+                className="w-64 py-6"
+                alt=""
+                src="https://typora-1309407228.cos.ap-shanghai.myqcloud.com/20220921212240.png"/>
                 <div className=" bg-gray-100 w-96 rounded-xl border-2 border-gray-200 p-6">
                     <div className="pb-6">
                         <div className="text-2xl font-bold">欢迎登录</div>
