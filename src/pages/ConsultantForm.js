@@ -13,6 +13,7 @@ import { setSearchParam } from "../store/searchSlice";
 import AddConsultant from "../components/AddConsultant";
 import ModifyConsultantInfo from "../components/ModifyConsultantInfo";
 import { setInitUserInfo } from "../store/consultantSlice";
+import { exportExcel } from "../utils/exportExcel";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -46,7 +47,11 @@ const FormHeader = () => {
             }}>
                 <FunctionBtn text="添加咨询师" type="add"/>
             </div>
-            <div>
+            <div
+            onClick={() => {
+                exportExcel("/consultant/export");
+            }}
+            >
                 <FunctionBtn text="导出表格" type="export"/>
             </div>
         </div>

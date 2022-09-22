@@ -8,6 +8,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { openModifyCrisisSituation } from "../store/modalSlice";
 import ChangeCrisisSituation from "../components/ChangeCrisisSituation";
 import { setSearchParam } from "../store/searchSlice";
+import { exportExcel } from "../utils/exportExcel";
 
 const server = "https://cyzz.fun/HeartSpace";
 
@@ -36,7 +37,11 @@ const FormHeader = () => {
             </div>
         </div>
         <div className="flex space-x-3">
-            <div>
+            <div
+            onClick={() => {
+                exportExcel('/user/export');
+            }}
+            >
                 <FunctionBtn text="导出表格" type="export"/>
             </div>
         </div>
