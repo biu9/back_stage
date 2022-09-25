@@ -73,33 +73,6 @@ const FormBody = (props) => {
                             if(consultation.consultRecords instanceof Array) {
                                 crisisSituation = consultation.consultRecords[consultation.consultRecords.length - 1].crisisSituation;
                             }
-                            /*res.push((
-                            <tr className=" border-green-200 border-b-2 h-9 w-full">
-                                <td>{item.name}</td>
-                                <td>{name}</td>
-                                <td>{item.phoneNumber}</td>
-                                <td>{consultation.state}</td>
-                                <td>{crisisSituation}</td>
-                                <td className="flex space-x-3">
-                                        <div 
-                                    onClick={() => {
-                                        //console.log("symptom : ",consultation.Symptom);
-                                        dispatch(setSymptom(consultation.Symptom));
-                                        dispatch(openUserInfoModal());
-                                    }}
-                                    className="cursor-pointer">查看
-                                    </div>
-                                    <div
-                                    onClick={() => {
-                                        dispatch(openModifyCrisisSituation());
-                                        dispatch(setConsultation(consultation));
-                                    }}
-                                    className="cursor-pointer">
-                                        危机个案
-                                    </div>
-                                </td>
-                            </tr>
-                            ));*/
                             res.push(<FormList item={item} consultation={consultation} crisisSituation={crisisSituation}/>)
                             return null;          
                         })
@@ -127,10 +100,10 @@ const FormList = (props) => {
         <td>{props.item.name}</td>
         <td>{name}</td>
         <td>{props.item.phoneNumber}</td>
-        <td>{props.consultation.state}</td>
+        <td>{props.consultation.consultRecords!==null ? props.consultation.state : '预约中'}</td>
         <td>{props.crisisSituation}</td>
         <td className="flex space-x-3">
-                <div 
+            <div 
             onClick={() => {
                 //console.log("symptom : ",consultation.Symptom);
                 dispatch(setSymptom(props.consultation.Symptom));
